@@ -9,6 +9,7 @@
     "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
+    "supabase": "^2.100.1",
     "typescript": "^5.2.2"
   },
   "pnpm": {

@@ -103,9 +103,12 @@ out/
 .env.test.local
 .env.production.local
 *.env
+.dev.vars
+.dev.vars.local
 
 # Supabase
 .supabase/
+supabase/.temp/
 
 # Wrangler (Cloudflare)
 .wrangler/

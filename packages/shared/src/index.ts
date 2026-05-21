@@ -13,6 +13,7 @@ export interface Account {
   type: 'cash' | 'bank' | 'ewallet' | 'credit_card' | 'investment' | 'debt' | 'other';
   balance: number;
   color?: string;
+  is_active: boolean;
 }
 
 export interface Category {
@@ -97,13 +98,5 @@ export interface UserAchievement {
   earned_at: string;
 }
 
-export interface WeeklyChallenge {
-  id: string;
-  title: string;
-  description: string;
-  target_value: number;
-  current_value: number;
-  start_date: string;
-  end_date: string;
-  completed: boolean;
-}
+export * from './utils';
+

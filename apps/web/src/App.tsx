@@ -1,4 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Accounts from './pages/Accounts';
@@ -17,16 +19,28 @@ import Settings from './pages/Settings';
 import Export from './pages/Export';
 import NotFound from './pages/NotFound';
 
-export default function App() {
+function AppRoutes() {
+  const { user, loading } = useAuth();
+
   return (
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route 
+        path="/login" 
+        element={user && !loading ? <Navigate to="/dashboard" replace /> : <Login />} 
+      />
+      <Route 
+        path="/register" 
+        element={user && !loading ? <Navigate to="/dashboard" replace /> : <Register />} 
+      />
       
-      {/* Protected Routes (wrapped in MainLayout) */}
-      <Route path="/" element={<MainLayout />}>
+      {/* Protected Routes (wrapped in MainLayout and ProtectedRoute) */}
+      <Route path="/" element={
+        <ProtectedRoute>
+          <MainLayout />
+        </ProtectedRoute>
+      }>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="accounts" element={<Accounts />} />
         <Route path="transactions" element={<Transactions />} />
@@ -44,5 +58,13 @@ export default function App() {
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />
     </Routes>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   );
 }
