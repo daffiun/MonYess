@@ -1,33 +1,48 @@
-import { useState } from 'react'
-import MainLayout from './layouts/MainLayout'
-import Dashboard from './pages/Dashboard'
-import Accounts from './pages/Accounts'
-import Transactions from './pages/Transactions'
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import Dashboard from './pages/Dashboard';
+import Accounts from './pages/Accounts';
+import Transactions from './pages/Transactions';
+import Landing from './pages/Landing';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Categories from './pages/Categories';
+import Budgets from './pages/Budgets';
+import Goals from './pages/Goals';
+import Debts from './pages/Debts';
+import Recurring from './pages/Recurring';
+import Reports from './pages/Reports';
+import Telegram from './pages/Telegram';
+import Settings from './pages/Settings';
+import Export from './pages/Export';
+import NotFound from './pages/NotFound';
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('dashboard');
-
-  const renderPage = () => {
-    switch(currentPage) {
-      case 'dashboard': return <Dashboard />;
-      case 'accounts': return <Accounts />;
-      case 'transactions': return <Transactions />;
-      default: return <Dashboard />;
-    }
-  }
-
+export default function App() {
   return (
-    <div className="flex min-h-screen">
-      {/* 
-        NOTE: Since we haven't set up React Router yet for this static prototype, 
-        we'll use a simple state to switch pages for visual confirmation. 
-        The MainLayout needs to be updated to handle this navigation.
-      */}
-      <MainLayout onNavigate={setCurrentPage} currentPage={currentPage}>
-        {renderPage()}
-      </MainLayout>
-    </div>
-  )
-}
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      
+      {/* Protected Routes (wrapped in MainLayout) */}
+      <Route path="/" element={<MainLayout />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="accounts" element={<Accounts />} />
+        <Route path="transactions" element={<Transactions />} />
+        <Route path="categories" element={<Categories />} />
+        <Route path="budgets" element={<Budgets />} />
+        <Route path="goals" element={<Goals />} />
+        <Route path="debts" element={<Debts />} />
+        <Route path="recurring" element={<Recurring />} />
+        <Route path="reports" element={<Reports />} />
+        <Route path="telegram" element={<Telegram />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="export" element={<Export />} />
+      </Route>
 
-export default App
+      {/* 404 Route */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}

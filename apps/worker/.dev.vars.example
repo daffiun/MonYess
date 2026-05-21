@@ -1,0 +1,4 @@
+SUPABASE_URL="placeholder_url"
+SUPABASE_SERVICE_ROLE_KEY="placeholder_service_key"
+TELEGRAM_BOT_TOKEN="placeholder_bot_token"
+TELEGRAM_WEBHOOK_SECRET="placeholder_secret"

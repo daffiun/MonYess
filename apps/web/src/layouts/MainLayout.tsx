@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react';
+import { Outlet, NavLink, useLocation, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Receipt, 
@@ -24,42 +25,47 @@ function cn(...inputs: ClassValue[]) {
 interface SidebarItemProps {
   icon: any;
   label: string;
-  active?: boolean;
-  onClick: () => void;
+  to: string;
   collapsed: boolean;
 }
 
-const SidebarItem = ({ icon: Icon, label, active, onClick, collapsed }: SidebarItemProps) => (
-  <div 
-    onClick={onClick}
-    className={cn(
-      "flex items-center gap-3 px-3.5 py-3 rounded-xl cursor-pointer transition-all duration-200 group relative",
-      active 
+const SidebarItem = ({ icon: Icon, label, to, collapsed }: SidebarItemProps) => (
+  <NavLink
+    to={to}
+    className={({ isActive }) => cn(
+      "flex items-center gap-3 px-3.5 py-3 rounded-xl transition-all duration-200 group relative",
+      isActive 
         ? "bg-blue-600 text-white font-semibold shadow-lg shadow-blue-200" 
         : "text-slate-500 hover:bg-slate-100 hover:text-slate-900",
       collapsed && "justify-center px-0"
     )}
     title={collapsed ? label : ""}
   >
-    <Icon size={22} className={cn("shrink-0", active ? "text-white" : "text-slate-500 group-hover:text-blue-600")} />
-    {!collapsed && <span className="text-sm font-medium whitespace-nowrap overflow-hidden">{label}</span>}
-    
-    {collapsed && (
-      <div className="absolute left-full ml-4 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 whitespace-nowrap">
-        {label}
-      </div>
+    {({ isActive }) => (
+      <>
+        <Icon size={22} className={cn("shrink-0", isActive ? "text-white" : "text-slate-500 group-hover:text-blue-600")} />
+        {!collapsed && <span className="text-sm font-medium whitespace-nowrap overflow-hidden">{label}</span>}
+        
+        {collapsed && (
+          <div className="absolute left-full ml-4 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 whitespace-nowrap">
+            {label}
+          </div>
+        )}
+      </>
     )}
-  </div>
+  </NavLink>
 );
 
-interface MainLayoutProps {
-  children: ReactNode;
-  onNavigate: (page: string) => void;
-  currentPage: string;
-}
-
-export default function MainLayout({ children, onNavigate, currentPage }: MainLayoutProps) {
+export default function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const location = useLocation();
+
+  // Simple title mapper
+  const getPageTitle = (pathname: string) => {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length === 0) return 'Dashboard';
+    return segments[0].charAt(0).toUpperCase() + segments[0].slice(1);
+  };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex w-full font-sans antialiased text-slate-900 overflow-hidden">
@@ -70,7 +76,7 @@ export default function MainLayout({ children, onNavigate, currentPage }: MainLa
       )}>
         {/* Logo Section */}
         <div className="h-20 flex items-center px-6 mb-4 relative">
-          <div className="flex items-center gap-3 min-w-0">
+          <Link to="/dashboard" className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold shrink-0 shadow-lg shadow-blue-200">
               <Coins size={22} />
             </div>
@@ -80,9 +86,9 @@ export default function MainLayout({ children, onNavigate, currentPage }: MainLa
                 <span className="text-[10px] text-blue-600 font-black uppercase tracking-widest">Premium</span>
               </div>
             )}
-          </div>
+          </Link>
           
-          {/* Toggle Button - Inside Sidebar Body */}
+          {/* Toggle Button */}
           <button 
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="absolute -right-3 top-7 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:border-blue-200 shadow-sm transition-all z-50"
@@ -93,31 +99,13 @@ export default function MainLayout({ children, onNavigate, currentPage }: MainLa
 
         {/* Navigation */}
         <nav className="flex-1 px-3 space-y-1 overflow-y-auto overflow-x-hidden py-2 custom-scrollbar">
-          <SidebarItem 
-            icon={LayoutDashboard} 
-            label="Dashboard" 
-            active={currentPage === 'dashboard'} 
-            onClick={() => onNavigate('dashboard')}
-            collapsed={!sidebarOpen}
-          />
-          <SidebarItem 
-            icon={Receipt} 
-            label="Transaksi" 
-            active={currentPage === 'transactions'} 
-            onClick={() => onNavigate('transactions')}
-            collapsed={!sidebarOpen}
-          />
-          <SidebarItem 
-            icon={Wallet} 
-            label="Akun" 
-            active={currentPage === 'accounts'} 
-            onClick={() => onNavigate('accounts')}
-            collapsed={!sidebarOpen}
-          />
-          <SidebarItem icon={PieChart} label="Anggaran" active={false} onClick={() => {}} collapsed={!sidebarOpen} />
-          <SidebarItem icon={Target} label="Target" active={false} onClick={() => {}} collapsed={!sidebarOpen} />
-          <SidebarItem icon={Trophy} label="Pencapaian" active={false} onClick={() => {}} collapsed={!sidebarOpen} />
-          <SidebarItem icon={Send} label="Telegram" active={false} onClick={() => {}} collapsed={!sidebarOpen} />
+          <SidebarItem icon={LayoutDashboard} label="Dashboard" to="/dashboard" collapsed={!sidebarOpen} />
+          <SidebarItem icon={Receipt} label="Transaksi" to="/transactions" collapsed={!sidebarOpen} />
+          <SidebarItem icon={Wallet} label="Akun" to="/accounts" collapsed={!sidebarOpen} />
+          <SidebarItem icon={PieChart} label="Anggaran" to="/budgets" collapsed={!sidebarOpen} />
+          <SidebarItem icon={Target} label="Target" to="/goals" collapsed={!sidebarOpen} />
+          <SidebarItem icon={Trophy} label="Pencapaian" to="/reports" collapsed={!sidebarOpen} />
+          <SidebarItem icon={Send} label="Telegram" to="/telegram" collapsed={!sidebarOpen} />
         </nav>
 
         {/* Level / User Status Section */}
@@ -155,25 +143,25 @@ export default function MainLayout({ children, onNavigate, currentPage }: MainLa
           )}
           
           <div className={cn("mt-3", !sidebarOpen && "flex justify-center")}>
-            <SidebarItem icon={Settings} label="Pengaturan" active={false} onClick={() => {}} collapsed={!sidebarOpen} />
+            <SidebarItem icon={Settings} label="Pengaturan" to="/settings" collapsed={!sidebarOpen} />
           </div>
         </div>
       </aside>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden h-screen bg-[#F8FAFC]">
-        {/* Header - Refined Spacing */}
+        {/* Header */}
         <header className="h-16 bg-white border-b border-slate-200 px-4 md:px-8 flex items-center justify-between sticky top-0 z-40">
           <div className="flex items-center gap-4">
              <h2 className="text-lg font-black text-blue-600 lg:hidden">MonYess</h2>
              <div className="hidden lg:block">
-                <h1 className="text-sm font-bold text-slate-400">Dashboard</h1>
+                <h1 className="text-sm font-bold text-slate-400">{getPageTitle(location.pathname)}</h1>
              </div>
           </div>
 
           <div className="flex items-center gap-2 md:gap-5">
-            {/* Streak Indicator - More Compact */}
-            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 bg-amber-50 border border-amber-100 rounded-lg">
+            {/* Streak Indicator */}
+            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 bg-amber-50 border border-amber-100 rounded-lg cursor-pointer">
               <span className="text-base">🔥</span>
               <span className="text-[11px] font-black text-amber-900 uppercase tracking-tight">5 Hari</span>
             </div>
@@ -184,7 +172,7 @@ export default function MainLayout({ children, onNavigate, currentPage }: MainLa
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-rose-500 rounded-full border border-white"></span>
             </button>
             
-            {/* Account Section - More Unified */}
+            {/* Account Section */}
             <div className="flex items-center gap-3 pl-3 md:pl-5 border-l border-slate-100">
               <div className="text-right hidden sm:block leading-tight">
                 <p className="text-xs font-bold text-slate-900">User Monyess</p>
@@ -199,10 +187,10 @@ export default function MainLayout({ children, onNavigate, currentPage }: MainLa
           </div>
         </header>
 
-        {/* Page Container - Improved Padding */}
+        {/* Page Container */}
         <main className="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth">
           <div className="max-w-7xl mx-auto">
-            {children}
+            <Outlet />
           </div>
         </main>
       </div>
