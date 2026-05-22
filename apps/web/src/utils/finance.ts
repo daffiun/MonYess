@@ -93,9 +93,16 @@ export const getScoreLabel = (score: number): string => {
 };
 
 /**
- * Get Financial Level Label
+ * Trigger download of a CSV file
  */
-export const getFinancialLevelLabel = (level: number): string => {
-  const levels = ['Pemula', 'Konsisten', 'Terkendali', 'Strategis', 'Master'];
-  return levels[Math.min(level - 1, levels.length - 1)] || 'Pemula';
+export const downloadCSV = (content: string, filename: string) => {
+  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.setAttribute("href", url);
+  link.setAttribute("download", filename);
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
