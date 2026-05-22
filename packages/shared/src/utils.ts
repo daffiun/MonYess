@@ -6,12 +6,6 @@ export interface ParsedTransaction {
 }
 
 export function parseTransactionCommand(text: string): ParsedTransaction | null {
-  // Expected format:
-  // /expense 25000 | Makan & Minum | nasi padang
-  // /expense 25000 | Makan & Minum | BCA | nasi padang
-  // /income 500000 | Freelance | project kecil
-  // /income 500000 | Freelance | BCA | project kecil
-
   // Remove command part (/expense or /income)
   const parts = text.split(' ');
   if (parts.length < 2) return null;
@@ -21,8 +15,17 @@ export function parseTransactionCommand(text: string): ParsedTransaction | null 
 
   if (sections.length < 2) return null;
 
-  // Normalize amount: remove dots, commas, non-numeric characters except decimals
-  const rawAmount = sections[0].replace(/[^0-9]/g, '');
+  // Normalize amount: 
+  // Remove currency prefix if user adds it (e.g. Rp 50.000)
+  // Remove dots/commas used as thousands separators
+  let rawAmount = sections[0].replace(/Rp|IDR/gi, '').trim();
+  
+  // If it contains both dot and comma, assume comma is decimal (common in ID) or vice versa.
+  // For simplicity in this CLI-bot, we strip all non-numeric characters except maybe decimal.
+  // Actually, for Indonesian users, 50.000 is 50k. 50,00 is 50.
+  // We'll strip all non-digits to handle 50.000 and 50,000 correctly as 50000.
+  rawAmount = rawAmount.replace(/[^\d]/g, '');
+  
   const amount = parseInt(rawAmount, 10);
 
   if (isNaN(amount) || amount <= 0) return null;

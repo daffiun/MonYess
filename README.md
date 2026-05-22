@@ -1,104 +1,92 @@
-# FinanceBot (MonYess)
+# MonYess (FinanceBot)
 
-Personal Finance Tracker for Indonesian Users with Telegram Integration and Gamification.
+Personal Finance Tracker untuk pengguna di Indonesia dengan integrasi Telegram dan Gamifikasi Kebiasaan.
 
-## Project Structure
-- `apps/web`: React + Vite + TypeScript frontend with Tailwind CSS.
-- `apps/worker`: Cloudflare Workers for Telegram Bot and Scheduled Tasks.
-- `packages/shared`: Shared TypeScript types and utilities.
+## 🚀 Gambaran Umum
+MonYess adalah aplikasi pencatat keuangan pribadi yang ringan namun lengkap. Didesain untuk membantu Anda membangun kebiasaan mencatat transaksi secara konsisten melalui web app yang modern dan bot Telegram yang praktis.
 
-## Tech Stack
-- Frontend: React, Vite, Tailwind CSS, React Router, Lucide React, Recharts.
-- Backend/Auth: Supabase.
-- Bot/Serverless: Cloudflare Workers (Hono).
-- Database: PostgreSQL (Supabase) with RLS and RPC.
+## ✨ Fitur Utama
+- **Pencatatan Multi-Platform**: Input transaksi via Web atau bot Telegram.
+- **Manajemen Saldo**: Pantau banyak akun/dompet secara real-time.
+- **Anggaran (Budgeting)**: Set batasan pengeluaran per kategori.
+- **Target Tabungan (Goals)**: Visualisasi progress menuju barang impian.
+- **Laporan Visual**: Grafik tren arus kas dan breakdown pengeluaran.
+- **Gamifikasi Ringan**: Sistem Streak, Level, Badge, dan Skor Kesehatan Finansial.
+- **Portabilitas Data**: Ekspor semua data dan Impor transaksi via CSV.
+- **Otomatisasi**: Pengingat harian dan pencatatan transaksi rutin otomatis via Cloudflare Workers.
 
-## Development
-This project uses `pnpm` workspaces.
+## 🛠️ Tech Stack
+- **Frontend**: React + Vite + TypeScript, Tailwind CSS, React Router, Recharts.
+- **Backend/Auth**: Supabase (PostgreSQL, Auth, RLS).
+- **Serverless/Bot**: Cloudflare Workers (Hono).
+- **Package Manager**: pnpm workspaces.
 
-### Prerequisites
-- Node.js (Latest LTS)
-- pnpm (v9+ recommended)
+## 📦 Struktur Proyek
+- `apps/web`: Aplikasi frontend utama.
+- `apps/worker`: Logic bot Telegram dan tugas terjadwal (cron).
+- `packages/shared`: Tipe data dan utilitas bersama.
+- `supabase/migrations`: Skema database dan fungsi RPC.
 
-### Setup
+## ⚙️ Persiapan & Instalasi
+
+### Prasyarat
+- Node.js (Versi LTS terbaru).
+- pnpm (`npm install -g pnpm`).
+- Supabase Account.
+- Cloudflare Account & Wrangler CLI.
+
+### 1. Kloning & Install
 ```bash
-# 1. Install dependencies
+git clone [url-repo]
+cd MonYess
 pnpm install
-
-# (Optional) If you get an esbuild or sharp error, run:
-pnpm approve-builds
 ```
 
-### Running the Project
+### 2. Setup Supabase
+1. Buat project baru di [Supabase](https://supabase.com).
+2. Jalankan isi folder `supabase/migrations/` di SQL Editor (Urutkan dari 0 ke 1).
+3. Copy **Project URL** dan **Anon Key** ke `apps/web/.env`.
+4. Copy **Service Role Key** ke `apps/worker/.dev.vars`.
+
+### 3. Setup Telegram Bot
+1. Buat bot via **@BotFather** di Telegram.
+2. Masukkan **Bot Token** ke `apps/worker/.dev.vars`.
+
+### 4. Menjalankan Lokal
 ```bash
-# Run the Web App
+# Jalankan Web App
 pnpm dev:web
 
-# Run the Cloudflare Worker (Local testing with remote bindings)
+# Jalankan Worker (untuk bot Telegram)
 pnpm dev:worker --remote
 ```
 
-## Phases
-- [x] Fase 0: UI Direction Confirmation (Refined Option B + Gamification)
-- [x] Fase 1: Static Visual Prototype & Monorepo Setup (Mock Data, React Router)
-- [x] Fase 2: Database Schema & Supabase Setup (RLS, RPCs, Gamification tables)
-- [x] Fase 3: Authentication Implementation (Supabase Auth, Protected Routes)
-- [x] Fase 4: Core CRUD Implementation (Accounts, Categories, Transactions, Balances)
-- [x] Fase 5: Live Dashboard & Reports (Dynamic Charts, Real Stats, Reports Page)
-- [x] Fase 6: Planning & Advanced Features (Budgets, Goals, Debts, Recurring)
-- [x] Fase 7: Telegram Bot Integration (Cloudflare Worker, Linking, Command Parser)
-- [x] Fase 8: Scheduled Automation & Reminders (Cron Triggers, Recurring Tx)
-- [ ] Fase 9: Deployment & Final Polish (NEXT)
+## 🌐 Deployment
 
-## Integrasi Telegram (Fase 7)
-MonYess mendukung input transaksi via Telegram. Fitur ini di-handle oleh Cloudflare Worker (`apps/worker`).
+### Cloudflare Pages (Frontend)
+1. Hubungkan repo GitHub Anda ke Cloudflare Pages.
+2. Gunakan Build Command: `pnpm run build` (atau spesifik ke apps/web).
+3. Set Environment Variables yang dibutuhkan.
 
-### 1. Setup Bot Telegram
-1. Buka Telegram dan cari **@BotFather**.
-2. Ketik `/newbot`, lalu ikuti instruksi untuk membuat bot baru.
-3. Simpan **Bot Token** yang diberikan oleh BotFather.
-
-### 2. Setup Environment Worker
-Buka file `apps/worker/.dev.vars` dan pastikan data berikut sudah terisi:
-```env
-TELEGRAM_BOT_TOKEN="token_dari_botfather"
-TELEGRAM_WEBHOOK_SECRET="bebas_isi_password_rahasia_untuk_webhook"
-TELEGRAM_WEBHOOK_SETUP_SECRET="bebas_isi_password_untuk_register_webhook"
-CRON_TEST_SECRET="bebas_isi_password_untuk_testing_cron"
-SUPABASE_URL="url_project_supabase_kamu"
-SUPABASE_SERVICE_ROLE_KEY="kunci_rahasia_service_role_supabase"
-WEBAPP_URL="http://localhost:5173"
+### Cloudflare Workers (Backend/Bot)
+```bash
+cd apps/worker
+pnpm deploy
 ```
+*Jangan lupa mendaftarkan webhook setelah deploy: `https://[URL]/telegram/set-webhook?secret=[SETUP_SECRET]`*
 
-### 3. Cara Mengetes Tautan (Linking)
-1. Buka web MonYess, login, lalu ke halaman **Telegram**.
-2. Klik **Buat Kode Link**.
-3. Buka bot Telegram kamu, ketik `/link KODE_KAMU` (misal: `/link X7B9K2`).
-4. Jika berhasil, tampilan di web akan otomatis berubah menjadi "Terhubung".
+## 🔒 Keamanan
+Detail mengenai arsitektur keamanan dapat dilihat di [SECURITY_NOTES.md](./SECURITY_NOTES.md).
 
-### 4. Format Perintah Transaksi Telegram
-Setelah akun terhubung, kamu bisa mencatat transaksi dengan format:
-- `/expense 25000 | Makan | Beli bakso`
-- `/income 500000 | Gaji | BCA | Bonus bulanan`
+## 🎮 Gamifikasi
+Panduan mengenai sistem skor, level, dan badge dapat dilihat di [GAMIFICATION_NOTES.md](./GAMIFICATION_NOTES.md).
 
-## Otomatisasi Terjadwal (Fase 8)
-MonYess menggunakan **Cloudflare Cron Triggers** untuk menjalankan tugas rutin secara otomatis di latar belakang.
+## 📊 Format CSV (Impor)
+Kolom yang dibutuhkan: `transaction_date, type, amount, account_name, category_name, note`.
 
-### 1. Jadwal Cron (UTC)
-Cloudflare menggunakan waktu UTC. Berikut konversinya ke WIB (Asia/Jakarta):
-- `0 0 * * *` (00:00 UTC) = **07:00 WIB** (Pengingat Pagi & Transaksi Rutin).
-- `0 14 * * *` (14:00 UTC) = **21:00 WIB** (Rekap Malam).
+## 📌 Batasan Saat Ini
+- Transaksi rutin otomatis membutuhkan jadwal Cron yang aktif di Cloudflare.
+- Fitur Impor CSV saat ini hanya mendukung tabel Transaksi.
 
-### 2. Fitur Otomatisasi
-- **Transaksi Rutin**: Mencatat transaksi secara otomatis berdasarkan jadwal yang kamu buat di web.
-- **Pengingat Pagi**: Motivasi harian untuk tetap mencatat transaksi.
-- **Alert Budget**: Notifikasi jika pengeluaran kategori tertentu mencapai 80% atau 100%.
-- **Reminder Hutang**: Notifikasi saat ada hutang yang akan jatuh tempo (H-3) atau sudah lewat.
-- **Rekap Malam**: Ringkasan uang masuk dan keluar kamu sepanjang hari.
-
-### 3. Cara Mengetes Manual (Testing)
-Kamu tidak perlu menunggu jam 7 pagi untuk mengetes fitur ini. Gunakan rute rahasia berikut:
-1. Tambahkan `CRON_TEST_SECRET` di Cloudflare Worker Secrets (atau `.dev.vars` jika lokal).
-2. Akses melalui browser:
-   `https://[URL_WORKER]/cron/test?secret=[KATA_RAHASIA]`
-3. Jika berhasil, bot Telegram kamu akan mengirimkan semua notifikasi yang relevan secara instan.
+---
+*Dibuat dengan ❤️ untuk membantu keuangan masyarakat Indonesia menjadi lebih "Yess!"*
