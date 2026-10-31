@@ -53,51 +53,6 @@ export default function HeroSection({ onOpenShowreel, onOpenProjectModal }: Hero
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80" />
       </div>
 
-      {/* Top Meta Row */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6 text-xs font-mono text-zinc-400">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-          <span className="text-white font-bold">{LANDING_CONTENT.brand.name}</span>
-          <span className="text-zinc-600">/</span>
-          <span className="text-accent">{LANDING_CONTENT.hero.eyebrow}</span>
-        </div>
-
-        <div className="hidden md:flex items-center gap-8">
-          {LANDING_CONTENT.hero.meta.map((item, idx) => (
-            <div key={idx} className="flex gap-2">
-              <span className="text-zinc-500">{item.label}:</span>
-              <span className="text-white font-medium">{item.value}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-4 text-zinc-400">
-          <a
-            href={LANDING_CONTENT.brand.githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-accent transition-colors"
-          >
-            GITHUB
-          </a>
-          <span>•</span>
-          <a
-            href="https://t.me/monyess_bot"
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-accent transition-colors"
-          >
-            TELEGRAM
-          </a>
-          <span>•</span>
-          <Link
-            to="/login"
-            className="text-accent hover:underline transition-all"
-          >
-            WEB APP
-          </Link>
-        </div>
-      </div>
 
       {/* Center Giant Editorial Headline */}
       <div className="relative z-10 max-w-7xl mx-auto w-full my-auto py-12 md:py-20">
