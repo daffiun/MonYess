@@ -1,63 +1,150 @@
-import { Link } from 'react-router-dom';
-import { Coins, ArrowRight, Smartphone, LineChart, Target } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import Lenis from 'lenis';
+
+// Global & Navigation UI Components
+import Preloader from '../components/Preloader';
+import CustomCursor from '../components/CustomCursor';
+import ScrollProgressBar from '../components/ScrollProgressBar';
+import Navbar from '../components/Navbar';
+import ChapterNav from '../components/ChapterNav';
+import ProjectModal from '../components/ProjectModal';
+import ShowreelModal from '../components/ShowreelModal';
+
+// 16 Sections in Strict Order
+import HeroSection from '../components/HeroSection';
+import IntroSection from '../components/IntroSection';
+import FeaturedWorkSection from '../components/FeaturedWorkSection';
+import PitchdeckSection from '../components/PitchdeckSection';
+import WhatWeDoSection from '../components/WhatWeDoSection';
+import HappyClientsSection from '../components/HappyClientsSection';
+import CultureTeaserSection from '../components/CultureTeaserSection';
+import WhoWeAreSection from '../components/WhoWeAreSection';
+import OurVibeSection from '../components/OurVibeSection';
+import CoreValuesSection from '../components/CoreValuesSection';
+import WhatWeBelieveSection from '../components/WhatWeBelieveSection';
+import TheWorkSection from '../components/TheWorkSection';
+import AwardsSection from '../components/AwardsSection';
+import ClientsHeartSection from '../components/ClientsHeartSection';
+import ContactSection from '../components/ContactSection';
+import FooterSection from '../components/FooterSection';
 
 export default function LandingPage() {
+  const [preloaderDone, setPreloaderDone] = useState(false);
+  const [projectModalOpen, setProjectModalOpen] = useState(false);
+  const [showreelOpen, setShowreelOpen] = useState(false);
+
+  // Initialize smooth scrolling with Lenis
+  useEffect(() => {
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.8,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-slate-50">
-      <nav className="h-20 bg-white border-b border-slate-200 px-6 md:px-12 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-200">
-            <Coins size={22} />
-          </div>
-          <span className="text-xl font-black text-slate-900">MonYess</span>
-        </div>
-        <div className="flex gap-3">
-          <Link to="/login" className="px-5 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-xl transition-all">Masuk</Link>
-          <Link to="/register" className="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">Daftar Gratis</Link>
-        </div>
-      </nav>
+    <div className="relative min-h-screen bg-[#070708] text-[#F5F5F7] selection:bg-accent selection:text-black">
+      {/* 0% -> 100% Animated Preloader */}
+      {!preloaderDone && <Preloader onComplete={() => setPreloaderDone(true)} />}
 
-      <main className="max-w-6xl mx-auto px-6 py-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-tight mb-6">
-          Kendalikan Uangmu, <br/>
-          <span className="text-blue-600">Bangun Kebiasaanmu.</span>
-        </h1>
-        <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto">
-          Catat keuangan pribadi dari web dan Telegram. Fitur lengkap, ringan, tanpa iklan, dan bantu kamu jadi master finansial.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link to="/register" className="px-8 py-4 bg-blue-600 text-white rounded-2xl text-lg font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-200 flex items-center justify-center gap-2">
-            Mulai Sekarang <ArrowRight size={20} />
-          </Link>
-          <Link to="/telegram" className="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-2xl text-lg font-bold hover:bg-slate-50 transition-all shadow-sm flex items-center justify-center gap-2">
-            <Smartphone size={20} className="text-blue-500"/> Coba via Telegram
-          </Link>
-        </div>
+      {/* Award-style Interactive Custom Cursor */}
+      <CustomCursor />
 
-        <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
-              <Smartphone size={24} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Input Cepat Telegram</h3>
-            <p className="text-slate-500">Nggak perlu buka app, tinggal chat ke bot Telegram MonYess dan transaksi otomatis tercatat.</p>
-          </div>
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-              <LineChart size={24} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Laporan Otomatis</h3>
-            <p className="text-slate-500">Pantau arus kas, budget, dan kesehatan finansialmu lewat dashboard visual yang modern.</p>
-          </div>
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-            <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
-              <Target size={24} />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Gamifikasi Kebiasaan</h3>
-            <p className="text-slate-500">Sistem streak, level, dan badge bikin rutinitas mencatat keuangan jadi asik dan konsisten.</p>
-          </div>
-        </div>
+      {/* Minimal Top Scroll Progress Bar */}
+      <ScrollProgressBar />
+
+      {/* Floating Vertical Chapter Navigation */}
+      <ChapterNav />
+
+      {/* Fixed Header */}
+      <Navbar onOpenProjectModal={() => setProjectModalOpen(true)} />
+
+      {/* Main Single-Page Award Flow */}
+      <main>
+        {/* 01. HERO */}
+        <HeroSection
+          onOpenShowreel={() => setShowreelOpen(true)}
+          onOpenProjectModal={() => setProjectModalOpen(true)}
+        />
+
+        {/* 02. INTRO STATEMENT */}
+        <IntroSection />
+
+        {/* 03. FEATURED WORK */}
+        <FeaturedWorkSection />
+
+        {/* 04. PITCHDECK TEASER */}
+        <PitchdeckSection />
+
+        {/* 05. WHAT WE DO */}
+        <WhatWeDoSection />
+
+        {/* 06. HAPPY CLIENTS */}
+        <HappyClientsSection />
+
+        {/* 07. CULTURE TEASER */}
+        <CultureTeaserSection />
+
+        {/* 08. WHO WE ARE */}
+        <WhoWeAreSection />
+
+        {/* 09. OUR VIBE */}
+        <OurVibeSection />
+
+        {/* 10. CORE VALUES */}
+        <CoreValuesSection />
+
+        {/* 11. WHAT WE BELIEVE */}
+        <WhatWeBelieveSection />
+
+        {/* 12. THE WORK */}
+        <TheWorkSection />
+
+        {/* 13. AWARDS */}
+        <AwardsSection />
+
+        {/* 14. CLIENTS WITH A HEART */}
+        <ClientsHeartSection />
+
+        {/* 15. CONTACT CTA */}
+        <ContactSection onOpenProjectModal={() => setProjectModalOpen(true)} />
       </main>
+
+      {/* 16. FOOTER */}
+      <FooterSection />
+
+      {/* Multi-step "Start a project" modal */}
+      <ProjectModal
+        isOpen={projectModalOpen}
+        onClose={() => setProjectModalOpen(false)}
+      />
+
+      {/* Fullscreen Video Showreel Modal */}
+      <ShowreelModal
+        isOpen={showreelOpen}
+        onClose={() => setShowreelOpen(false)}
+      />
     </div>
   );
 }
