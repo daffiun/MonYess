@@ -1,11 +1,6 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/lib/utils';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-interface ProgressBarProps {
+export interface ProgressBarProps {
   value: number; // 0-100
   max?: number;
   className?: string;

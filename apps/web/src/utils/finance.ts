@@ -1,49 +1,12 @@
-import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
+import { format, eachDayOfInterval } from 'date-fns';
 import { id } from 'date-fns/locale';
 
-/**
- * Format number to Indonesian Rupiah
- */
-export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
+export * from './currency';
+export * from './date';
+export * from './file';
 
 /**
- * Format date to Indonesian long format
- */
-export const formatDate = (date: string | Date, pattern: string = 'dd MMMM yyyy'): string => {
-  return format(new Date(date), pattern, { locale: id });
-};
-
-/**
- * Get date range for current month
- */
-export const getCurrentMonthRange = () => {
-  const now = new Date();
-  return {
-    start: format(startOfMonth(now), 'yyyy-MM-dd'),
-    end: format(endOfMonth(now), 'yyyy-MM-dd'),
-  };
-};
-
-/**
- * Get date range for current week
- */
-export const getCurrentWeekRange = () => {
-  const now = new Date();
-  return {
-    start: format(startOfWeek(now, { weekStartsOn: 1 }), 'yyyy-MM-dd'),
-    end: format(endOfWeek(now, { weekStartsOn: 1 }), 'yyyy-MM-dd'),
-  };
-};
-
-/**
- * Group transactions by category name
+ * Group transactions by category name (expenses only)
  */
 export const groupTransactionsByCategory = (transactions: any[]) => {
   const groups: Record<string, { name: string; amount: number; color?: string }> = {};
@@ -90,19 +53,4 @@ export const getScoreLabel = (score: number): string => {
   if (score >= 60) return 'Cukup Stabil';
   if (score >= 40) return 'Mulai Konsisten';
   return 'Perlu Dibangun';
-};
-
-/**
- * Trigger download of a CSV file
- */
-export const downloadCSV = (content: string, filename: string) => {
-  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement("a");
-  const url = URL.createObjectURL(blob);
-  link.setAttribute("href", url);
-  link.setAttribute("download", filename);
-  link.style.visibility = 'hidden';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
 };

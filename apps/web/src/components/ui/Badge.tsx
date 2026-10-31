@@ -1,12 +1,7 @@
 import { ReactNode } from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/lib/utils';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-interface BadgeProps {
+export interface BadgeProps {
   children: ReactNode;
   variant?: 'blue' | 'emerald' | 'rose' | 'amber' | 'slate';
   className?: string;

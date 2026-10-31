@@ -1,12 +1,7 @@
 import { ReactNode } from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/lib/utils';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-interface CardProps {
+export interface CardProps {
   children: ReactNode;
   className?: string;
   variant?: 'white' | 'slate';

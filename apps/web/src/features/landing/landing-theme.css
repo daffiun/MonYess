@@ -1,0 +1,64 @@
+/*
+ * Landing page theme tokens — "Hutan Monyet Uang"
+ * Scoped to the .landing wrapper. Does not affect other pages.
+ * Values are RGB channels so Tailwind opacity modifiers work (bg-land-gold/50).
+ */
+
+.landing {
+  --land-bg: 12 26 15;
+  --land-surface: 22 36 21;
+  --land-raised: 30 51 32;
+  --land-prose: 241 237 227;
+  --land-muted: 139 154 126;
+  --land-gold: 201 168 76;
+  --land-gold-bright: 224 192 104;
+  --land-edge: 42 63 42;
+  --land-red: 212 100 74;
+  --land-green: 93 170 104;
+
+  background-color: rgb(var(--land-bg));
+  color: rgb(var(--land-prose));
+}
+
+/* Hero background — two faint radial glows suggesting forest canopy light. */
+.landing-hero-bg {
+  background-image:
+    radial-gradient(ellipse 600px 400px at 15% 60%, rgba(93, 170, 104, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 300px at 80% 25%, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
+}
+
+/* Navbar solid state (appears on scroll). */
+.landing-nav-solid {
+  background-color: rgb(var(--land-surface) / 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgb(var(--land-edge));
+}
+
+/* Telegram typing-indicator dots. */
+@keyframes land-dot-bounce {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+.land-dot:nth-child(1) { animation: land-dot-bounce 1.4s ease-in-out infinite 0s; }
+.land-dot:nth-child(2) { animation: land-dot-bounce 1.4s ease-in-out infinite 0.2s; }
+.land-dot:nth-child(3) { animation: land-dot-bounce 1.4s ease-in-out infinite 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .land-dot { animation: none !important; opacity: 0.6; }
+}
+
+/* Mascot placeholder — dashed border marks where a custom image will go. */
+.land-mascot-slot {
+  border: 2px dashed rgb(var(--land-gold));
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--land-gold));
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(201, 168, 76, 0.06);
+}

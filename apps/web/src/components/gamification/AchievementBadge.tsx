@@ -1,12 +1,7 @@
 import { LucideIcon } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/lib/utils';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-interface AchievementBadgeProps {
+export interface AchievementBadgeProps {
   icon: LucideIcon;
   label: string;
   variant: 'blue' | 'emerald' | 'amber' | 'slate' | 'rose';
@@ -17,8 +12,8 @@ export function AchievementBadge({ icon: Icon, label, variant, isEarned = true }
   const variants = {
     blue: 'bg-blue-50 text-blue-600 border-blue-100 shadow-blue-100/50',
     emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100 shadow-emerald-100/50',
-    amber: 'bg-amber-50 text-amber-600 border-amber-100 shadow-amber-100/50',
     rose: 'bg-rose-50 text-rose-600 border-rose-100 shadow-rose-100/50',
+    amber: 'bg-amber-50 text-amber-600 border-amber-100 shadow-amber-100/50',
     slate: 'bg-slate-50 text-slate-400 border-slate-100 shadow-slate-100/50',
   };
 

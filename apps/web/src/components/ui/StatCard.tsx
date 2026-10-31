@@ -1,12 +1,7 @@
 import { LucideIcon, TrendingUp } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/lib/utils';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-interface StatCardProps {
+export interface StatCardProps {
   title: string;
   amount: number | string;
   icon: LucideIcon;
