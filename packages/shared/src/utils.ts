@@ -19,6 +19,7 @@ export function parseTransactionCommand(text: string): ParsedTransaction | null 
   // Remove currency prefix if user adds it (e.g. Rp 50.000)
   // Remove dots/commas used as thousands separators
   let rawAmount = sections[0].replace(/Rp|IDR/gi, '').trim();
+  if (rawAmount.includes('-')) return null;
   
   // If it contains both dot and comma, assume comma is decimal (common in ID) or vice versa.
   // For simplicity in this CLI-bot, we strip all non-numeric characters except maybe decimal.
