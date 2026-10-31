@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
-import { Play, ArrowDown, ArrowUpRight, Sparkles } from 'lucide-react';
+import { useRef, useEffect, useState } from 'react';
+import { Play, ArrowDown, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { LANDING_CONTENT } from '../content';
@@ -9,12 +9,45 @@ interface HeroSectionProps {
   onOpenProjectModal: () => void;
 }
 
-export default function HeroSection({ onOpenShowreel, onOpenProjectModal }: HeroSectionProps) {
+const GLITCH_PHRASES = ['TRACK SMARTER.', 'SPEND WISER.'];
+
+export default function HeroSection({ onOpenShowreel }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const bottomBarRef = useRef<HTMLDivElement>(null);
+
+  // Glitch alternating phrase state (cycles every 3 seconds)
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [displayText, setDisplayText] = useState(GLITCH_PHRASES[0]);
+  const [isGlitching, setIsGlitching] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsGlitching(true);
+
+      // Mid-glitch swap (140ms in)
+      const swapTimeout = setTimeout(() => {
+        setPhraseIndex((prev) => {
+          const next = (prev + 1) % GLITCH_PHRASES.length;
+          setDisplayText(GLITCH_PHRASES[next]);
+          return next;
+        });
+      }, 140);
+
+      // End glitch effect (300ms total)
+      const endTimeout = setTimeout(() => {
+        setIsGlitching(false);
+      }, 300);
+
+      return () => {
+        clearTimeout(swapTimeout);
+        clearTimeout(endTimeout);
+      };
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   // Buttery-smooth GSAP entrance sequence
   useEffect(() => {
@@ -26,39 +59,33 @@ export default function HeroSection({ onOpenShowreel, onOpenProjectModal }: Hero
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
-        badgeRef.current,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.7, delay: 0.1 }
+        '.hero-line',
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.1,
+          ease: 'power4.out',
+        }
       )
         .fromTo(
-          '.hero-line',
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.0,
-            stagger: 0.12,
-            ease: 'power4.out',
-          },
-          '-=0.4'
-        )
-        .fromTo(
           descRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          '-=0.5'
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.7 },
+          '-=0.4'
         )
         .fromTo(
           ctaRef.current,
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.5'
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          '-=0.4'
         )
         .fromTo(
           bottomBarRef.current,
-          { opacity: 0, y: 18 },
+          { opacity: 0, y: 15 },
           { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.4'
+          '-=0.3'
         );
     }, containerRef);
 
@@ -69,7 +96,7 @@ export default function HeroSection({ onOpenShowreel, onOpenProjectModal }: Hero
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-between pt-28 pb-10 px-6 md:px-12 bg-black overflow-hidden noise-overlay select-none"
+      className="relative min-h-screen w-full flex flex-col justify-between pt-20 md:pt-24 pb-8 md:pb-10 px-6 md:px-12 bg-black overflow-hidden noise-overlay select-none"
     >
       {/* Background ambient video loop with soft vignette */}
       <div className="absolute inset-0 z-0 overflow-hidden opacity-30 pointer-events-none">
@@ -86,25 +113,38 @@ export default function HeroSection({ onOpenShowreel, onOpenProjectModal }: Hero
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80" />
       </div>
 
-      {/* Center Giant Editorial Headline Block */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full my-auto py-12 md:py-16">
-        {/* Eyebrow badge */}
-        <div ref={badgeRef} className="inline-flex items-center gap-2 eyebrow-badge mb-6 md:mb-8">
-          <Sparkles size={12} className="text-accent" />
-          <span>{LANDING_CONTENT.hero.eyebrow}</span>
-        </div>
-
+      {/* Center Giant Editorial Headline Block (shifted upwards for higher focus) */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full my-auto pt-4 md:pt-6 pb-12 md:pb-16 -translate-y-3 md:-translate-y-8">
         {/* Fluid clamp typography with high-impact stagger lines */}
         <h1 className="text-[12vw] sm:text-[11vw] lg:text-[9.5vw] font-display font-black tracking-[-0.05em] leading-[0.88] text-white uppercase">
           <div className="hero-line overflow-hidden">
-            <span>TRACK</span>
+            <span>EVERY DAY.</span>
           </div>
-          <div className="hero-line overflow-hidden">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400">
-              SMARTER.
-            </span>{' '}
-            <span className="text-accent italic font-light hover:not-italic transition-all duration-300">
-              SPEND WISER.
+          <div className="hero-line overflow-hidden pt-1 md:pt-2">
+            <span
+              className={`relative inline-block text-accent italic font-light hover:not-italic transition-all duration-300 ${
+                isGlitching ? 'glitch-active' : ''
+              }`}
+            >
+              {displayText}
+
+              {/* Glitch chromatic aberration split slices */}
+              {isGlitching && (
+                <>
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 select-none pointer-events-none glitch-layer-cyan"
+                  >
+                    {displayText}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 select-none pointer-events-none glitch-layer-pink"
+                  >
+                    {displayText}
+                  </span>
+                </>
+              )}
             </span>
           </div>
         </h1>
