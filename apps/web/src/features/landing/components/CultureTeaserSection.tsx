@@ -7,7 +7,7 @@ export default function CultureTeaserSection() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Copy */}
         <div className="lg:col-span-6 space-y-6">
-          <div className="eyebrow-badge">[ Studio Culture & Roots ]</div>
+          <div className="eyebrow-badge">[ The Builder Story • Origin ]</div>
 
           <h2 className="text-4xl md:text-6xl font-display font-black tracking-tight text-white leading-tight">
             {LANDING_CONTENT.culture.headline}
@@ -20,7 +20,7 @@ export default function CultureTeaserSection() {
           <div className="p-6 rounded-2xl bg-zinc-950/80 border border-white/10 text-xs font-mono space-y-2 text-zinc-400">
             <div className="flex items-center gap-2 text-accent">
               <Compass size={14} />
-              <span>COORDINATES</span>
+              <span>COORDINATES & BASE</span>
             </div>
             <div className="text-white font-medium">{LANDING_CONTENT.brand.coordinates}</div>
             <div className="text-zinc-500">{LANDING_CONTENT.brand.address}</div>
@@ -31,7 +31,7 @@ export default function CultureTeaserSection() {
               href="#about"
               className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white border-b-2 border-accent pb-1 hover:text-accent transition-colors"
             >
-              <span>Explore Our Culture Manifesto</span>
+              <span>Learn About The Builder</span>
               <ArrowUpRight size={16} />
             </a>
           </div>
@@ -43,12 +43,12 @@ export default function CultureTeaserSection() {
           <div className="relative w-3/4 aspect-[4/5] rounded-3xl overflow-hidden border border-white/15 shadow-2xl">
             <img
               src={LANDING_CONTENT.culture.photos[0]}
-              alt="Amsterdam studio canals"
+              alt="Code and architecture sprint"
               className="w-full h-full object-cover filter contrast-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-5 left-5 text-xs font-mono text-zinc-300">
-              [ 01 / AMSTERDAM STUDIO ]
+              [ 01 / CRAFT & CODE ]
             </div>
           </div>
 
@@ -56,12 +56,12 @@ export default function CultureTeaserSection() {
           <div className="absolute -bottom-6 -right-2 sm:right-6 w-1/2 aspect-[4/5] rounded-3xl overflow-hidden border-2 border-accent shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
             <img
               src={LANDING_CONTENT.culture.photos[1]}
-              alt="Jakarta creative studio"
+              alt="Built in Indonesia"
               className="w-full h-full object-cover filter contrast-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 text-xs font-mono text-accent font-bold">
-              [ 02 / JAKARTA CREATIVE ]
+              [ 02 / BUILT IN INDONESIA ]
             </div>
           </div>
         </div>

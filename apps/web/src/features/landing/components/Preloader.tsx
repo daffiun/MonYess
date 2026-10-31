@@ -58,9 +58,9 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       <div className="flex justify-between items-center text-xs uppercase tracking-widest font-mono text-zinc-500">
         <span className="text-accent flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
-          MONYESS STUDIO
+          MONYESS • FINANCE TRACKER
         </span>
-        <span>AMSTERDAM / JAKARTA</span>
+        <span>SOLO PORTFOLIO • INDONESIA 🇮🇩</span>
       </div>
 
       <div className="my-auto">
@@ -69,13 +69,13 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           <span className="text-accent text-[8vw] md:text-[5vw] ml-2">%</span>
         </div>
         <p className="font-mono text-sm uppercase tracking-widest text-zinc-400 mt-2">
-          [ Initializing creative frequency & engineering assets ]
+          [ Initializing financial telemetry & gamified engine ]
         </p>
       </div>
 
       <div className="flex justify-between items-end border-t border-zinc-800 pt-6 text-xs font-mono text-zinc-500">
-        <span>CRAFTING DIGITAL MOMENTUM</span>
-        <span>© 2025/2026</span>
+        <span>TRACK SMARTER. SPEND WISER.</span>
+        <span>© {new Date().getFullYear()} DAFFI AHMAD</span>
       </div>
     </div>
   );

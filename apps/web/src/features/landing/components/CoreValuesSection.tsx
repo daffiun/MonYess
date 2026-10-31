@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Sparkles, ShieldCheck, HeartHandshake, Zap } from 'lucide-react';
 import { LANDING_CONTENT, ValueItem } from '../content';
 
-const ICONS = [Sparkles, ShieldCheck, HeartHandshake, Zap];
+const ICONS = [Zap, Sparkles, HeartHandshake, ShieldCheck];
 
 export default function CoreValuesSection() {
   const [activeValue, setActiveValue] = useState(0);
@@ -13,13 +13,13 @@ export default function CoreValuesSection() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20">
           <div>
-            <div className="eyebrow-badge mb-4">[ Principles • Core Values ]</div>
+            <div className="eyebrow-badge mb-4">[ Principles • Core Standards ]</div>
             <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight text-white uppercase">
-              WHAT DRIVES US.
+              WHAT DRIVES MONYESS.
             </h2>
           </div>
           <p className="text-zinc-400 max-w-md text-sm md:text-base font-sans">
-            Four non-negotiable standards etched into every sprint, prototype, and product launch.
+            Four foundational standards designed for zero friction, high clarity, and lasting behavioral habits.
           </p>
         </div>
 

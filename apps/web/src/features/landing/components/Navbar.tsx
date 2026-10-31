@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenProjectModal: () => void;
@@ -45,13 +45,13 @@ export default function Navbar({ onOpenProjectModal }: NavbarProps) {
               href="#work"
               className="relative overflow-hidden group py-1 text-zinc-300 hover:text-white transition-colors"
             >
-              <span className="block transition-transform duration-300 group-hover:-translate-y-full">Work</span>
+              <span className="block transition-transform duration-300 group-hover:-translate-y-full">Features</span>
               <span className="absolute top-full left-0 block text-accent font-semibold transition-transform duration-300 group-hover:-translate-y-full">
-                Work
+                Features
               </span>
             </a>
 
-            {/* Dropdown: What we do */}
+            {/* Dropdown: Capabilities */}
             <div
               className="relative py-1"
               onMouseEnter={() => setDropdownOpen(true)}
@@ -61,7 +61,7 @@ export default function Navbar({ onOpenProjectModal }: NavbarProps) {
                 className="flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors"
                 aria-expanded={dropdownOpen}
               >
-                <span>What we do</span>
+                <span>Capabilities</span>
                 <ChevronDown
                   size={14}
                   className={`transition-transform duration-300 ${dropdownOpen ? 'rotate-180 text-accent' : ''}`}
@@ -75,46 +75,56 @@ export default function Navbar({ onOpenProjectModal }: NavbarProps) {
                     className="block p-3 rounded-xl hover:bg-white/5 transition-colors group"
                     onClick={() => setDropdownOpen(false)}
                   >
-                    <div className="text-white text-xs font-mono uppercase tracking-wider text-accent mb-0.5">01 / Identity</div>
-                    <div className="text-sm font-bold text-white group-hover:text-accent transition-colors">Branding & Strategy</div>
+                    <div className="text-white text-xs font-mono uppercase tracking-wider text-accent mb-0.5">01 / Core</div>
+                    <div className="text-sm font-bold text-white group-hover:text-accent transition-colors">Financial Core</div>
                   </a>
                   <a
                     href="#services"
                     className="block p-3 rounded-xl hover:bg-white/5 transition-colors group"
                     onClick={() => setDropdownOpen(false)}
                   >
-                    <div className="text-white text-xs font-mono uppercase tracking-wider text-accent mb-0.5">02 / Engineering</div>
-                    <div className="text-sm font-bold text-white group-hover:text-accent transition-colors">Digital & FinTech</div>
+                    <div className="text-white text-xs font-mono uppercase tracking-wider text-accent mb-0.5">02 / Chat</div>
+                    <div className="text-sm font-bold text-white group-hover:text-accent transition-colors">Telegram Bot</div>
                   </a>
                   <a
                     href="#services"
                     className="block p-3 rounded-xl hover:bg-white/5 transition-colors group"
                     onClick={() => setDropdownOpen(false)}
                   >
-                    <div className="text-white text-xs font-mono uppercase tracking-wider text-accent mb-0.5">03 / Traction</div>
-                    <div className="text-sm font-bold text-white group-hover:text-accent transition-colors">Marketing & Scale</div>
+                    <div className="text-white text-xs font-mono uppercase tracking-wider text-accent mb-0.5">03 / Habits</div>
+                    <div className="text-sm font-bold text-white group-hover:text-accent transition-colors">Habit Engine</div>
                   </a>
                 </div>
               )}
             </div>
 
             <a
-              href="#about"
+              href="#deck"
               className="relative overflow-hidden group py-1 text-zinc-300 hover:text-white transition-colors"
             >
-              <span className="block transition-transform duration-300 group-hover:-translate-y-full">About us</span>
+              <span className="block transition-transform duration-300 group-hover:-translate-y-full">Architecture</span>
               <span className="absolute top-full left-0 block text-accent font-semibold transition-transform duration-300 group-hover:-translate-y-full">
-                About us
+                Architecture
               </span>
             </a>
 
             <a
-              href="#culture"
+              href="#about"
               className="relative overflow-hidden group py-1 text-zinc-300 hover:text-white transition-colors"
             >
-              <span className="block transition-transform duration-300 group-hover:-translate-y-full">Culture</span>
+              <span className="block transition-transform duration-300 group-hover:-translate-y-full">About</span>
               <span className="absolute top-full left-0 block text-accent font-semibold transition-transform duration-300 group-hover:-translate-y-full">
-                Culture
+                About
+              </span>
+            </a>
+
+            <a
+              href="#awards"
+              className="relative overflow-hidden group py-1 text-zinc-300 hover:text-white transition-colors"
+            >
+              <span className="block transition-transform duration-300 group-hover:-translate-y-full">Specs</span>
+              <span className="absolute top-full left-0 block text-accent font-semibold transition-transform duration-300 group-hover:-translate-y-full">
+                Specs
               </span>
             </a>
 
@@ -166,7 +176,7 @@ export default function Navbar({ onOpenProjectModal }: NavbarProps) {
               className="relative group overflow-hidden px-6 py-2.5 rounded-full bg-accent text-black font-bold text-xs uppercase tracking-wider hover:shadow-[0_0_20px_rgba(204,255,0,0.5)] transition-all duration-300"
             >
               <div className="relative z-10 transition-transform duration-300 group-hover:-translate-y-[150%]">
-                Start a project
+                Collaborate
               </div>
               <div className="absolute inset-0 z-10 flex items-center justify-center translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 text-black">
                 Let's talk →
@@ -204,28 +214,35 @@ export default function Navbar({ onOpenProjectModal }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-accent transition-colors"
               >
-                Work
+                Features
               </a>
               <a
                 href="#services"
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-accent transition-colors"
               >
-                What we do
+                Capabilities
+              </a>
+              <a
+                href="#deck"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-accent transition-colors"
+              >
+                Architecture
               </a>
               <a
                 href="#about"
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-accent transition-colors"
               >
-                About us
+                About
               </a>
               <a
-                href="#culture"
+                href="#awards"
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-accent transition-colors"
               >
-                Culture
+                Specs
               </a>
               <a
                 href="#contact"
@@ -262,7 +279,7 @@ export default function Navbar({ onOpenProjectModal }: NavbarProps) {
               }}
               className="w-full py-4 rounded-xl bg-accent text-black font-extrabold text-center block text-sm shadow-[0_0_20px_rgba(204,255,0,0.4)]"
             >
-              Start a project
+              Get In Touch
             </button>
           </div>
         </div>

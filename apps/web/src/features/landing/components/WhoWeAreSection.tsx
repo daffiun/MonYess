@@ -8,7 +8,7 @@ export default function WhoWeAreSection() {
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
         <div className="max-w-3xl">
-          <div className="eyebrow-badge mb-4">[ Who We Are • Philosophy ]</div>
+          <div className="eyebrow-badge mb-4">[ About The Builder • Craft ]</div>
           <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight text-white uppercase leading-[0.95]">
             {whoWeAre.headline}
           </h2>
@@ -41,29 +41,29 @@ export default function WhoWeAreSection() {
           <div className="md:col-span-3 aspect-square rounded-3xl overflow-hidden border border-white/10 bg-zinc-900 group">
             <img
               src={whoWeAre.images[2]}
-              alt="Creative studio atmosphere"
+              alt="Creative workspace"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale hover:grayscale-0"
             />
           </div>
         </div>
 
-        {/* Squad Facts */}
+        {/* Builder Facts */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-10 text-xs font-mono">
           <div>
-            <span className="text-zinc-500 uppercase block">CORE SQUAD</span>
-            <span className="text-white text-lg font-bold font-display mt-1 block">24 MAKERS</span>
+            <span className="text-zinc-500 uppercase block">BUILDER</span>
+            <span className="text-white text-lg font-bold font-display mt-1 block">DAFFI AHMAD</span>
           </div>
           <div>
-            <span className="text-zinc-500 uppercase block">AVERAGE TENURE</span>
-            <span className="text-white text-lg font-bold font-display mt-1 block">7+ YEARS EXP</span>
+            <span className="text-zinc-500 uppercase block">DISCIPLINE</span>
+            <span className="text-white text-lg font-bold font-display mt-1 block">FULLSTACK DEV</span>
           </div>
           <div>
-            <span className="text-zinc-500 uppercase block">ACCOUNT MANAGERS</span>
-            <span className="text-accent text-lg font-bold font-display mt-1 block">ZERO FLUFF</span>
+            <span className="text-zinc-500 uppercase block">STATUS</span>
+            <span className="text-accent text-lg font-bold font-display mt-1 block">OPEN SOURCE</span>
           </div>
           <div>
-            <span className="text-zinc-500 uppercase block">TIMEZONES COVERED</span>
-            <span className="text-white text-lg font-bold font-display mt-1 block">CET & WIB (24H)</span>
+            <span className="text-zinc-500 uppercase block">LOCATION</span>
+            <span className="text-white text-lg font-bold font-display mt-1 block">INDONESIA 🇮🇩</span>
           </div>
         </div>
       </div>

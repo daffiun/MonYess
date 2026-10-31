@@ -6,9 +6,9 @@ export default function HappyClientsSection() {
   return (
     <section className="py-20 bg-[#070708] border-b border-white/10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8 flex items-center justify-between">
-        <div className="eyebrow-badge">[ Happy Clients & Partners ]</div>
+        <div className="eyebrow-badge">[ Technology Stack • Core Ecosystem ]</div>
         <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:inline-block">
-          TRUSTED BY MODERN VENTURES
+          POWERED BY MODERN TOOLS & RUNTIMES
         </span>
       </div>
 

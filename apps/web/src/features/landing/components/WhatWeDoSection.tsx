@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Phone, ArrowUpRight, Check } from 'lucide-react';
+import { ArrowUpRight, Github, Send } from 'lucide-react';
 import { LANDING_CONTENT, ServiceCategory } from '../content';
 
 export default function WhatWeDoSection() {
@@ -11,12 +11,12 @@ export default function WhatWeDoSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="max-w-2xl mb-20">
-          <div className="eyebrow-badge mb-4">[ What We Do • Core Capabilities ]</div>
+          <div className="eyebrow-badge mb-4">[ System Capabilities • 3 Core Pillars ]</div>
           <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight text-white uppercase">
-            FULL SPECTRUM DIGITAL.
+            THREE PILLARS OF MONYESS.
           </h2>
           <p className="mt-4 text-zinc-400 font-sans text-sm md:text-base leading-relaxed">
-            From the initial spark of brand positioning to high-concurrency FinTech architectures and viral gamification loops.
+            From zero-friction conversational logging to high-clarity financial analytics and dopamine-driven habit gamification.
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export default function WhatWeDoSection() {
                 <div className="relative z-10">
                   <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-zinc-500 mb-6">
                     <span className={isHovered ? 'text-accent font-bold' : ''}>
-                      [ 0{idx + 1} / DISCIPLINE ]
+                      [ 0{idx + 1} / PILLAR ]
                     </span>
                     <ArrowUpRight
                       size={18}
@@ -88,31 +88,44 @@ export default function WhatWeDoSection() {
           })}
         </div>
 
-        {/* TLDR hotline with team member avatar */}
+        {/* TLDR hotline with developer info */}
         <div className="mt-16 p-6 md:p-8 rounded-3xl bg-zinc-950 border border-white/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="flex items-center gap-4 text-center md:text-left">
             <img
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80"
-              alt="MonYess Partner"
+              alt="Daffi Ahmad"
               className="w-14 h-14 rounded-full object-cover border-2 border-accent shadow-[0_0_15px_#CCFF00]"
             />
             <div>
               <p className="text-sm md:text-base font-bold text-white">
-                TLDR; we do a lot. Just give us a call:
+                TL;DR — MonYess tracks your money so you don't have to.
               </p>
               <p className="text-xs font-mono text-zinc-400">
-                Direct partner line • Amsterdam & Jakarta timezones
+                Open source portfolio architecture • Built solo by Daffi Ahmad
               </p>
             </div>
           </div>
 
-          <a
-            href={`tel:${LANDING_CONTENT.brand.phone.replace(/[^0-9+]/g, '')}`}
-            className="flex items-center gap-3 px-6 py-3.5 rounded-full bg-accent hover:bg-white text-black font-mono font-bold text-sm tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(204,255,0,0.4)]"
-          >
-            <Phone size={16} />
-            <span>{LANDING_CONTENT.brand.phone}</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="https://t.me/monyess_bot"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2.5 px-5 py-3 rounded-full border border-white/20 hover:border-accent text-white hover:text-accent font-mono font-bold text-xs tracking-wider transition-all duration-300"
+            >
+              <Send size={14} />
+              <span>@monyess_bot</span>
+            </a>
+            <a
+              href="https://github.com/daffiahmad"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2.5 px-6 py-3 rounded-full bg-accent hover:bg-white text-black font-mono font-bold text-xs tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(204,255,0,0.4)]"
+            >
+              <Github size={15} />
+              <span>Explore GitHub</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

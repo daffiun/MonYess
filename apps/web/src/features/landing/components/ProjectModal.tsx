@@ -7,25 +7,25 @@ interface ProjectModalProps {
 }
 
 const PROJECT_TYPES = [
-  'Website & Creative Web',
-  'Brand Identity & Strategy',
-  'FinTech Platform & App',
-  'E-commerce & Headless',
-  'Telegram Bot System',
-  'Design System at Scale',
+  'Full-stack Web Application',
+  'Telegram Bot Integration',
+  'FinTech Dashboard & Analytics',
+  'Frontend Architecture & Redesign',
+  'Supabase Backend & Security (RLS)',
+  'Open Source Collaboration',
 ];
 
 const BUDGET_RANGES = [
-  '€10k – €25k',
-  '€25k – €50k',
-  '€50k – €100k',
-  '€100k+',
+  'Open Source / Collab',
+  '< $1,000',
+  '$1,000 – $5,000',
+  '$5,000+',
 ];
 
 export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const [budget, setBudget] = useState(BUDGET_RANGES[1]);
+  const [budget, setBudget] = useState(BUDGET_RANGES[0]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,7 +52,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
   const handleNext = () => {
     if (step === 1) {
       if (selectedTypes.length === 0) {
-        setErrors({ types: 'Please pick at least one project discipline.' });
+        setErrors({ types: 'Please pick at least one topic or discipline.' });
         return;
       }
       setErrors({});
@@ -69,7 +69,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
       errs.email = 'Please provide a valid email.';
     }
     if (!formData.message.trim()) {
-      errs.message = 'Please tell us a little bit about your project or vision.';
+      errs.message = 'Please tell me a little bit about what you have in mind.';
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -82,11 +82,11 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
     setIsSubmitting(true);
     setSubmitError(null);
 
-    // Simulate submission to lead pipeline
+    // Simulate sending inquiry
     setTimeout(() => {
       setIsSubmitting(false);
       setStep(3); // Success step
-    }, 900);
+    }, 700);
   };
 
   const handleReset = () => {
@@ -108,12 +108,12 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
         <div className="flex items-center justify-between pb-6 border-b border-white/10">
           <div>
             <div className="text-xs font-mono text-accent uppercase tracking-widest">
-              [ Start a project • Step 0{step} / 02 ]
+              [ Connect & Collaborate • Step 0{step} / 02 ]
             </div>
             <h2 className="text-2xl font-display font-bold text-white mt-1">
-              {step === 1 && "What are we building together?"}
-              {step === 2 && "Tell us about your team & vision"}
-              {step === 3 && "High five!"}
+              {step === 1 && 'What would you like to build or discuss?'}
+              {step === 2 && 'Tell me about your vision or idea'}
+              {step === 3 && 'Message transmitted!'}
             </h2>
           </div>
 
@@ -126,11 +126,11 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
           </button>
         </div>
 
-        {/* STEP 1: Project Type & Scope */}
+        {/* STEP 1: Topic & Scope */}
         {step === 1 && (
           <div className="py-6 space-y-6">
             <p className="text-sm text-zinc-400">
-              Select all categories that apply to your project. We assemble custom squads based on scope.
+              Select all categories relevant to your inquiry or collaboration idea.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -170,7 +170,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
 
             <div>
               <label className="block text-xs font-mono uppercase tracking-wider text-zinc-400 mb-2">
-                Estimated Investment Budget
+                Scope / Project Type
               </label>
               <div className="flex flex-wrap gap-2">
                 {BUDGET_RANGES.map((b) => (
@@ -196,7 +196,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
                 onClick={onClose}
                 className="text-xs font-mono text-zinc-400 hover:text-accent flex items-center gap-1.5 transition-colors"
               >
-                <Calendar size={14} /> Or schedule an intro call
+                <Calendar size={14} /> Or reach out directly
               </a>
 
               <div className="flex gap-3">
@@ -219,7 +219,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
           </div>
         )}
 
-        {/* STEP 2: Client Info & Project Brief */}
+        {/* STEP 2: Client Info & Brief */}
         {step === 2 && (
           <form onSubmit={handleSubmit} className="py-6 space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -254,11 +254,11 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
 
             <div>
               <label className="block text-xs font-mono uppercase tracking-wider text-zinc-400 mb-1">
-                Company / Venture (Optional)
+                Organization / GitHub Handle (Optional)
               </label>
               <input
                 type="text"
-                placeholder="e.g. Apex Studio"
+                placeholder="e.g. @github-handle or Company"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-accent"
@@ -267,11 +267,11 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
 
             <div>
               <label className="block text-xs font-mono uppercase tracking-wider text-zinc-400 mb-1">
-                What should we know about the project? *
+                What should we discuss? *
               </label>
               <textarea
                 rows={3}
-                placeholder="Timeline, challenges, core aspirations, links to existing materials..."
+                placeholder="Share your ideas, questions about MonYess architecture, or collaboration opportunities..."
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-accent resize-none"
@@ -299,7 +299,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
                 disabled={isSubmitting}
                 className="px-7 py-3 rounded-full bg-accent text-black font-extrabold text-xs uppercase tracking-wider hover:shadow-[0_0_20px_rgba(204,255,0,0.5)] transition-all disabled:opacity-50"
               >
-                {isSubmitting ? 'Transmitting...' : 'Submit Project Brief →'}
+                {isSubmitting ? 'Transmitting...' : 'Send Message →'}
               </button>
             </div>
           </form>
@@ -313,10 +313,10 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
             </div>
 
             <h3 className="text-3xl font-display font-black text-white">
-              You just made our day.
+              Message received!
             </h3>
             <p className="text-zinc-400 text-sm max-w-md mx-auto">
-              Our partners will review your brief within 24 hours. We’ll get back to you with initial thoughts and a proposed kickoff date.
+              Thanks for reaching out! I'll review your note and get back to you as soon as possible.
             </p>
 
             <div className="pt-4">

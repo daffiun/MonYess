@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Download, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sparkles, ChevronLeft, ChevronRight, Github } from 'lucide-react';
 import { LANDING_CONTENT } from '../content';
 
 export default function PitchdeckSection() {
@@ -9,7 +9,7 @@ export default function PitchdeckSection() {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
@@ -43,7 +43,7 @@ export default function PitchdeckSection() {
                 >
                   <div className="flex items-center justify-between text-xs font-mono uppercase tracking-wider mb-1">
                     <span className={activeSlide === idx ? 'text-accent font-bold' : 'text-zinc-500'}>
-                      Slide {slide.number}
+                      Layer {slide.number}
                     </span>
                     {activeSlide === idx && <Sparkles size={14} className="text-accent" />}
                   </div>
@@ -55,11 +55,13 @@ export default function PitchdeckSection() {
 
             <div className="pt-4 flex items-center gap-4">
               <a
-                href="#contact"
+                href={LANDING_CONTENT.brand.githubUrl}
+                target="_blank"
+                rel="noreferrer"
                 className="px-7 py-3.5 rounded-full bg-accent text-black font-extrabold text-xs uppercase tracking-wider hover:shadow-[0_0_20px_rgba(204,255,0,0.5)] transition-all flex items-center gap-2"
               >
-                <span>Request Full Deck</span>
-                <ArrowRight size={14} />
+                <Github size={15} />
+                <span>Explore Codebase on GitHub</span>
               </a>
             </div>
           </div>
@@ -80,7 +82,7 @@ export default function PitchdeckSection() {
               {/* Slide Header */}
               <div className="relative z-10 flex items-center justify-between text-xs font-mono text-zinc-300">
                 <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
-                  MONYESS MANIFESTO • {slides[activeSlide].number} / 03
+                  SYSTEM BLUEPRINT • {slides[activeSlide].number} / 03
                 </span>
 
                 <div className="flex gap-2">
@@ -104,7 +106,7 @@ export default function PitchdeckSection() {
               {/* Slide Bottom Caption */}
               <div className="relative z-10 p-4 md:p-6 bg-black/70 backdrop-blur-md rounded-2xl border border-white/10 max-w-lg">
                 <span className="text-xs font-mono uppercase tracking-wider text-accent block mb-1">
-                  Principle {slides[activeSlide].number}
+                  Architecture Layer {slides[activeSlide].number}
                 </span>
                 <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-2">
                   {slides[activeSlide].title}

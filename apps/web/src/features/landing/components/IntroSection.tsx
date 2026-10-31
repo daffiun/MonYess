@@ -9,16 +9,15 @@ export default function IntroSection() {
         </div>
 
         <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black tracking-tight leading-[0.95] text-white">
-          A creative digital agency that goes{' '}
+          A personal finance tracker that makes saving money actually{' '}
           <span className="text-accent underline decoration-white/20 underline-offset-8">
-            all in
-          </span>{' '}
-          or not at all.
+            feel good.
+          </span>
         </h2>
 
         <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-4 text-xs font-mono text-zinc-500 uppercase tracking-widest pt-2">
-            [ OUR DESIGN DOCTRINE ]
+            [ CORE PROJECT PHILOSOPHY ]
           </div>
           <div className="md:col-span-8">
             <p className="text-xl md:text-3xl text-zinc-300 font-sans font-light leading-relaxed">
@@ -28,15 +27,15 @@ export default function IntroSection() {
             <div className="mt-10 flex flex-wrap gap-6 text-xs font-mono text-zinc-400">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                <span>NO CORPORATE FLUFF</span>
+                <span>NO SPREADSHEET HEADACHES</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                <span>SUB-SECOND INTERACTION</span>
+                <span>ZERO-FRICTION TELEGRAM LOGGING</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                <span>OBSESSIVE CRAFT</span>
+                <span>BEHAVIORAL GAMIFICATION</span>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { LANDING_CONTENT } from '../content';
 
 export default function ClientsHeartSection() {
@@ -8,11 +8,11 @@ export default function ClientsHeartSection() {
     <section className="py-20 bg-[#070708] border-b border-white/10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8 flex items-center justify-between">
         <div className="flex items-center gap-2 eyebrow-badge">
-          <Heart size={14} className="text-accent fill-accent" />
-          <span>[ Clients With A Heart • Impact Initiatives ]</span>
+          <Sparkles size={14} className="text-accent" />
+          <span>[ System Features • All In One App ]</span>
         </div>
         <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest hidden sm:inline-block">
-          SUSTAINABILITY & PUBLIC VALUE
+          EVERYTHING YOU NEED TO MASTER YOUR FINANCES
         </span>
       </div>
 

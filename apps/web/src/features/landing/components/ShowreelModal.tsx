@@ -57,7 +57,7 @@ export default function ShowreelModal({ isOpen, onClose }: ShowreelModalProps) {
       <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
         <div className="flex items-center gap-2 text-accent">
           <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
-          MONYESS SHOWREEL [ 2025/2026 EDITION ]
+          MONYESS PRODUCT SHOWCASE [ PORTFOLIO EDITION ]
         </div>
 
         <button

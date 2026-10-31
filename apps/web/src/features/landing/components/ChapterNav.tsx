@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 
 const CHAPTERS = [
   { id: 'hero', label: 'Welcome' },
-  { id: 'intro', label: 'Who we are' },
-  { id: 'work', label: 'The Work' },
-  { id: 'deck', label: 'Manifesto' },
-  { id: 'services', label: 'What we do' },
-  { id: 'culture', label: 'Culture' },
-  { id: 'vibe', label: 'Our vibe' },
-  { id: 'values', label: 'Core values' },
-  { id: 'awards', label: 'Awards' },
-  { id: 'contact', label: "Let's talk" },
+  { id: 'intro', label: 'What is MonYess' },
+  { id: 'work', label: 'Features' },
+  { id: 'deck', label: 'Architecture' },
+  { id: 'services', label: 'Capabilities' },
+  { id: 'culture', label: 'Builder Story' },
+  { id: 'vibe', label: 'Philosophy' },
+  { id: 'values', label: 'Principles' },
+  { id: 'awards', label: 'Specs' },
+  { id: 'contact', label: "Let's connect" },
 ];
 
 export default function ChapterNav() {

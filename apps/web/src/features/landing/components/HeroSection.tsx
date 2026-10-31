@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize2, ArrowDown } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize2, ArrowDown, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { LANDING_CONTENT } from '../content';
 
 interface HeroSectionProps {
@@ -72,67 +73,65 @@ export default function HeroSection({ onOpenShowreel, onOpenProjectModal }: Hero
 
         <div className="flex items-center gap-4 text-zinc-400">
           <a
-            href="https://github.com"
+            href={LANDING_CONTENT.brand.githubUrl}
             target="_blank"
             rel="noreferrer"
             className="hover:text-accent transition-colors"
           >
-            GH
+            GITHUB
           </a>
           <span>•</span>
           <a
-            href="https://instagram.com"
+            href="https://t.me/monyess_bot"
             target="_blank"
             rel="noreferrer"
             className="hover:text-accent transition-colors"
           >
-            IG
+            TELEGRAM
           </a>
           <span>•</span>
-          <a
-            href="https://x.com"
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-accent transition-colors"
+          <Link
+            to="/login"
+            className="text-accent hover:underline transition-all"
           >
-            X
-          </a>
+            WEB APP
+          </Link>
         </div>
       </div>
 
       {/* Center Giant Editorial Headline */}
       <div className="relative z-10 max-w-7xl mx-auto w-full my-auto py-12 md:py-20">
         <div className="inline-block eyebrow-badge mb-4 md:mb-6">
-          [ 2025/2026 Creative & FinTech Direction ]
+          {LANDING_CONTENT.hero.eyebrow}
         </div>
 
         <h1 className="text-[12vw] sm:text-[11vw] lg:text-[10vw] font-display font-black tracking-[-0.05em] leading-[0.88] text-white uppercase select-none">
-          WE SHAPE <br />
+          TRACK <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-500 hover:text-accent transition-colors duration-500">
-            DIGITAL
+            SMARTER.
           </span>{' '}
           <span className="text-accent italic font-light hover:not-italic transition-all">
-            MOMENTUM.
+            SPEND WISER.
           </span>
         </h1>
 
         <p className="mt-8 max-w-xl text-base md:text-lg text-zinc-300 font-sans leading-relaxed">
-          Award-style digital experiences, autonomous financial bots, and obsessively crafted brand systems.
-          Engineered in Amsterdam & Jakarta for teams that refuse to be boring.
+          A modern full-stack personal finance tracker with zero-friction Telegram logging, gamified habit building, and clean analytics. Engineered solo in Indonesia.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <button
-            onClick={onOpenProjectModal}
-            className="px-8 py-4 rounded-full bg-accent text-black font-extrabold text-sm uppercase tracking-wider hover:shadow-[0_0_30px_rgba(204,255,0,0.6)] hover:scale-105 transition-all duration-300"
+          <Link
+            to="/login"
+            className="px-8 py-4 rounded-full bg-accent text-black font-extrabold text-sm uppercase tracking-wider hover:shadow-[0_0_30px_rgba(204,255,0,0.6)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
           >
-            Start a project →
-          </button>
+            <span>Launch Web App</span>
+            <ArrowUpRight size={16} />
+          </Link>
           <a
             href="#work"
             className="px-6 py-4 rounded-full border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-colors"
           >
-            Explore Portfolio
+            Explore Features
           </a>
         </div>
       </div>
@@ -151,10 +150,10 @@ export default function HeroSection({ onOpenShowreel, onOpenProjectModal }: Hero
 
           <div className="flex flex-col">
             <span className="text-white font-bold group-hover:text-accent transition-colors flex items-center gap-1.5">
-              WATCH 2025 SHOWREEL
+              WATCH APP SHOWCASE
               <Maximize2 size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
             </span>
-            <span className="text-zinc-500 text-[10px]">FULLSCREEN SHOWCASE • 0:00 / 1:03</span>
+            <span className="text-zinc-500 text-[10px]">PRODUCT PREVIEW • 0:00 / 1:03</span>
           </div>
 
           <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-white/15">
