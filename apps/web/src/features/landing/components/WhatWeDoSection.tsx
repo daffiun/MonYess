@@ -117,7 +117,7 @@ export default function WhatWeDoSection() {
               <span>@monyess_bot</span>
             </a>
             <a
-              href="https://github.com/daffiahmad"
+              href={LANDING_CONTENT.brand.githubUrl}
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2.5 px-6 py-3 rounded-full bg-accent hover:bg-white text-black font-mono font-bold text-xs tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(204,255,0,0.4)]"
