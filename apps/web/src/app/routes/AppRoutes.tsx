@@ -50,7 +50,6 @@ export function AppRoutes() {
 
         {/* Protected Routes (wrapped in MainLayout and ProtectedRoute) */}
         <Route
-          path="/"
           element={
             <ProtectedRoute>
               <MainLayout />
