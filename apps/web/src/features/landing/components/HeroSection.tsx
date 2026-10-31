@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { Play, ArrowDown, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -13,9 +13,13 @@ const GLITCH_PHRASES = ['TRACK SMARTER.', 'SPEND WISER.'];
 
 export default function HeroSection({ onOpenShowreel }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const bottomBarRef = useRef<HTMLDivElement>(null);
+
+  // Spotlight hover state
+  const [isHovered, setIsHovered] = useState(false);
 
   // Glitch alternating phrase state (cycles every 3 seconds)
   const [phraseIndex, setPhraseIndex] = useState(0);
@@ -48,6 +52,19 @@ export default function HeroSection({ onOpenShowreel }: HeroSectionProps) {
 
     return () => clearInterval(timer);
   }, []);
+
+  // 120 FPS hardware-accelerated spotlight coordinate tracker without React re-renders
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!headlineRef.current) return;
+    const rect = headlineRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    headlineRef.current.style.setProperty('--spotlight-x', `${x}px`);
+    headlineRef.current.style.setProperty('--spotlight-y', `${y}px`);
+  }, []);
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
 
   // Buttery-smooth GSAP entrance sequence
   useEffect(() => {
@@ -96,7 +113,7 @@ export default function HeroSection({ onOpenShowreel }: HeroSectionProps) {
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-between pt-20 md:pt-24 pb-8 md:pb-10 px-6 md:px-12 bg-black overflow-hidden noise-overlay select-none"
+      className="relative min-h-screen w-full flex flex-col justify-between pt-24 md:pt-28 pb-10 px-6 md:px-12 bg-black overflow-hidden noise-overlay select-none"
     >
       {/* Background ambient video loop with soft vignette */}
       <div className="absolute inset-0 z-0 overflow-hidden opacity-30 pointer-events-none">
@@ -113,41 +130,75 @@ export default function HeroSection({ onOpenShowreel }: HeroSectionProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80" />
       </div>
 
-      {/* Center Giant Editorial Headline Block (shifted upwards for higher focus) */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full my-auto pt-4 md:pt-6 pb-12 md:pb-16 -translate-y-3 md:-translate-y-8">
-        {/* Fluid clamp typography with high-impact stagger lines */}
-        <h1 className="text-[12vw] sm:text-[11vw] lg:text-[9.5vw] font-display font-black tracking-[-0.05em] leading-[0.88] text-white uppercase">
-          <div className="hero-line overflow-hidden">
-            <span>EVERY DAY.</span>
-          </div>
-          <div className="hero-line overflow-hidden pt-1 md:pt-2">
-            <span
-              className={`relative inline-block text-accent italic font-light hover:not-italic transition-all duration-300 ${
-                isGlitching ? 'glitch-active' : ''
-              }`}
-            >
-              {displayText}
+      {/* Center Giant Editorial Headline Block (adjusted position: balanced slightly lower) */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full my-auto pt-4 md:pt-8 pb-12 md:pb-16 -translate-y-1.5 md:-translate-y-4">
+        {/* Slanted hover wrapper with cursor-following circular spotlight */}
+        <div
+          ref={headlineRef}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative inline-block transition-transform duration-300 ease-out origin-bottom-left hover:skew-x-[-6deg] cursor-default"
+        >
+          {/* Base Layer */}
+          <h1 className="text-[12vw] sm:text-[11vw] lg:text-[9.5vw] font-display font-black tracking-[-0.05em] leading-[0.88] uppercase select-none">
+            <div className="hero-line overflow-hidden">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400">
+                EVERY DAY.
+              </span>
+            </div>
+            <div className="hero-line overflow-hidden pt-1 md:pt-2">
+              <span
+                className={`relative inline-block text-accent italic font-light transition-all duration-300 ${
+                  isGlitching ? 'glitch-active' : ''
+                }`}
+              >
+                {displayText}
 
-              {/* Glitch chromatic aberration split slices */}
-              {isGlitching && (
-                <>
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 select-none pointer-events-none glitch-layer-cyan"
-                  >
-                    {displayText}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 select-none pointer-events-none glitch-layer-pink"
-                  >
-                    {displayText}
-                  </span>
-                </>
-              )}
-            </span>
+                {/* Glitch chromatic aberration split slices */}
+                {isGlitching && (
+                  <>
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 select-none pointer-events-none glitch-layer-cyan"
+                    >
+                      {displayText}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 select-none pointer-events-none glitch-layer-pink"
+                    >
+                      {displayText}
+                    </span>
+                  </>
+                )}
+              </span>
+            </div>
+          </h1>
+
+          {/* Spotlight Overlay Layer (Only the circle around cursor turns pure white with glow) */}
+          <div
+            aria-hidden="true"
+            className={`absolute inset-0 pointer-events-none select-none spotlight-mask transition-opacity duration-200 ${
+              isHovered ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <div className="text-[12vw] sm:text-[11vw] lg:text-[9.5vw] font-display font-black tracking-[-0.05em] leading-[0.88] text-white uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.85)]">
+              <div className="overflow-hidden">
+                <span>EVERY DAY.</span>
+              </div>
+              <div className="overflow-hidden pt-1 md:pt-2">
+                <span
+                  className={`relative inline-block italic font-light ${
+                    isGlitching ? 'glitch-active' : ''
+                  }`}
+                >
+                  {displayText}
+                </span>
+              </div>
+            </div>
           </div>
-        </h1>
+        </div>
 
         {/* Clean, authentic description */}
         <p

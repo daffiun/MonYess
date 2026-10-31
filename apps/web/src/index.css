@@ -104,3 +104,9 @@ html.lenis, html.lenis body {
   color: #FF0055;
   mix-blend-mode: screen;
 }
+
+/* Circular Spotlight Hover Reveal */
+.spotlight-mask {
+  -webkit-mask-image: radial-gradient(circle 85px at var(--spotlight-x, -999px) var(--spotlight-y, -999px), black 30%, transparent 100%);
+  mask-image: radial-gradient(circle 85px at var(--spotlight-x, -999px) var(--spotlight-y, -999px), black 30%, transparent 100%);
+}
